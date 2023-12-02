@@ -1,43 +1,39 @@
 abstract class House {
-    protected door: boolean
-    protected Key: object
-    private tenants: Array<object>
+    protected door: boolean = false
+    private tenants: Array<Person> = []
 
-    public comeIn(person: object) {
+    constructor(protected Key: Key) {
+        this.Key = Key
+    }
+
+    public comeIn(person: Person): void {
         if (this.door === true) {
             this.tenants.push(person);
         }
     }
 
-    public abstract openDoor(Kkey: object): void
+    public abstract openDoor(key: number): void
 }
 
 class MyHouse extends House {
-    constructor(private Kkey: object) {
-        super()
-    }
-
-    public openDoor(Kkey) {
-        if (Key === Kkey) {
+    public openDoor(key) {
+        if (this.Key.getSignature === key) {
             this.door = true
         }
     }
 }
 
 class Key {
-    signature: number
-    constructor() {
-        this.signature = Math.random()
-    }
+    signature: number = Math.random()
 
-    getSignature() {
+    getSignature(): number {
         return this.signature
     }
 }
 
 class Person {
-    constructor(private key: object) {}
-    getKey() {
+    constructor(private key: Key) {}
+    getKey(): Key {
         return this.key
     }
 }
